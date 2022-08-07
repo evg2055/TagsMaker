@@ -1,0 +1,11 @@
+.tagsBlock {
+    display: flex;
+}
+p {
+    display:inline-block ;
+    background-color: aqua;
+    border-radius: 15px;
+    margin: 5px;
+    padding: 8px;
+}
+
