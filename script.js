@@ -1,11 +1,11 @@
 "use strict";
 
-const BUTTON = document.querySelector('#button');
-const BUTTON2 = document.querySelector('#button2');
+const BUTTON = document.querySelector('#button'); //кнопка добавить
+const BUTTON2 = document.querySelector('#button2'); //кнопка выести сохранненый список или другой список тегов
 const INPUT = document.querySelector('input');
 let tagsSet = new Set;
 const tagsBlock = document.querySelector('#tagsBlock');
-const testButton = document.querySelector('#testButton');
+const testButton = document.querySelector('#testButton'); //выввести список тегов в консоль
 const readOnlyButton = document.querySelector('#readOnly');
 
 
@@ -34,11 +34,12 @@ function render() {                                             // рендер
 }
 //  конец блок локал стораж
 
-function createTag(value) {                           //создать тэги
+function createTag(value) {                           //создать теги
     let newP = document.createElement('p');
 
     if (value[0] === '#'){
-    newP.textContent = value;
+    
+    newP.textContent = '#' + value.slice(1);
     } else { newP.textContent ='#' + value;};
 
     let closeButton = document.createElement('i');
@@ -54,13 +55,12 @@ function createTag(value) {                           //создать тэги
     )
     newP.appendChild(closeButton);
     tagsBlock.appendChild(newP);
-// valueINPUT = '';
 setLocalSt();
 };
 
-function mainFunc () {                                //добавить тэги через кнопку add
+function mainFunc () {                                //добавить теги через кнопку add
     let oldSize = tagsSet.size;
-    tagsSet.add(INPUT.value);
+    (INPUT.value[0] === '#') ? tagsSet.add(INPUT.value.slice(1)) : tagsSet.add(INPUT.value); //определяем валидный тег
     let newSize = tagsSet.size;
     
     if (oldSize != newSize && INPUT.value != '') {
@@ -82,7 +82,7 @@ readOnlyButton.addEventListener('click', () => {  // функция Ридонл
     };
 });
 
-function showTags() {                               //вывести в консоль тэги
+function showTags() {                               //вывести в консоль теги
     for(let elem of tagsSet) {
         console.log(elem);
     }
@@ -93,7 +93,5 @@ BUTTON.addEventListener('click', mainFunc);
 BUTTON2.addEventListener('click',() => {getLocalSt(); render()} );
 
 testButton.addEventListener('click', showTags);
-
-// присутвует баг #-присутствия
 
 
